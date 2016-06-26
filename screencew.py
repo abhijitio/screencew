@@ -6,14 +6,10 @@ client = dropbox.client.DropboxClient('<access-token>')
 print 'linked account: ', client.account_info()
 w = gtk.gdk.get_default_root_window()
 sz = w.get_size()
-print "The size of the window is %d x %d" % sz
 pb = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB,False,8,sz[0],sz[1])
 pb = pb.get_from_drawable(w,w.get_colormap(),0,0,0,0,sz[0],sz[1])
 if (pb != None):
     pb.save("screenshot.png","png")
-    print "Screenshot saved to screenshot.png."
-else:
-    print "Unable to get the screenshot."
 
 f = open('screenshot.png', 'rb')
 response = client.put_file('/came-from-desk.png', f)
@@ -24,8 +20,4 @@ print "File Removed!"
 folder_metadata = client.metadata('/')
 print 'metadata: ', folder_metadata
 
-f, metadata = client.get_file_and_metadata('/came-from-desk.png')
-out = open('came-from-desk.png', 'wb')
-out.write(f.read())
-out.close()
-print metadata
+
